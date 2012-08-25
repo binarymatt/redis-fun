@@ -33,9 +33,10 @@ class Worker():
         conn.incr('%s:failures' % self.queue)
 
     def check_commands(self):
-        print 'Checking commands: %s' % self.id
+        print 'Checking commands: %s:commands' % self.id
         command = conn.lpop('%s:commands' % self.id)
-        if command and command is 'stop':
+        if command and command == 'stop':
+            print 'Stopping...'
             return False
         return True
 
